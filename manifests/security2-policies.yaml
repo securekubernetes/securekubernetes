@@ -1,0 +1,31 @@
+---
+
+# Deny privileged containers
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sPrivilegedContainer
+metadata:
+  name: k8s-privileged-container
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+
+---
+
+# Allow whitelisted repos
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sAllowedRepos
+metadata:
+  name: whitelisted-repos
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces:
+      - "prd"
+      - "dev"
+  parameters:
+    repos:
+      - "open-policy-agent/opa"

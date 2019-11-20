@@ -87,50 +87,76 @@ But wait, looks like they're directly on the node.
 
 They tried to create a pod, but failed. So, they created a Service and an Endpoint.
 
-- Inspecting the attacker's commands, we see they were running kubectl using a kube-system default service token and created a service and endpoints.
-
-- In cloud shell, kubectl get service & endpoints in cloud shell to verify & delete them:
+In cloud shell, let's see if those exist:
 
 ```console
-kubectl get svc --all-namespaces
-kubectl get ep --all-namespaces
+kubectl -n kube-system get svc
+kubectl -n kube-system get ep
 ```
+
+That's one sneaky hacker, creating services and endpoints under the guise of Istio! Well, jokes on them, I'm not using a service mesh.
+
+Let's delete that service (the endpoint will be deleted too):
 
 ```console
 kubectl -n kube-system delete svc/istio-mgmt
 ```
 
-- But, how did this happen?!?!?!
-
-- In SD, we found traces of serviceaccount tokens in `dev` namespace. So, we decide to investigate pods in that namespace:
+But, how did this happen?!?!?! What is in `dev` namespace that led to someone running commands on the nodes?
 
 ```console
 kubectl -n dev get pods
-kubectl -n dev logs $(kubectl -n dev get pods -oname | grep dashboard)
 ```
 
 ```console
-kubectl -n dev logs $(kubectl -n dev get pods -oname | grep dashboard) -c dashboard
+kubectl -n dev logs dashboard -c dashboard
 ```
 
-- Nothing
+Nothing.
 
 ```console
-kubectl -n dev logs $(kubectl -n dev get pods -oname | grep dashboard) -c authproxy
+kubectl -n dev logs dashboard -c authproxy
 ```
 
-- Looks like webshell activity in authproxy logs.
+Ah, there is `/webshell` activity in authproxy logs.
 
-- Recalling an Open-Policy-Agent talk at KubeCon San Diego 2019, I heard that OPA/Gatekeeper can be deployed as an admission controller.
+So, how can we mitigate ourselves from this in the future?
 
-- Explain Admission Controllers. Insert diagram.
+Remember that the attacker elevated their privileges by running a privileged container and I remember a talk at KubeCon San Diego 2019 about Open-Policy-Agent/Gatekeeper that can be deployed as an admission controller.
 
-- Let's block privileged containers and unapproved images:
+That should work because an admission controller is a piece of code that intercepts requests to the Kubernetes API server after the request is authenticated and authorized.
+
+![opa admission gatekeeper](https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&ved=2ahUKEwiir96B8vnlAhWLFjQIHdGOCQUQjRx6BAgBEAQ&url=https%3A%2F%2Fwww.slideshare.net%2FTorinSandall%2Fenforcing-bespoke-policies-in-kubernetes&psig=AOvVaw1qCTJbyRTLCT7xERsgwbx8&ust=1574377132135039)
+
+So, let's block privileged containers and whitelist only the images we expect to have on our cluster:
 
 ```console
-kubectl apply -f <GITHUB URL TO manifests/gatekeeper>
+kubectl apply -f https://raw.githubusercontent.com/securekubernetes/securekubernetes/master/manifests/security2.yaml
+kubectl apply -f https://raw.githubusercontent.com/securekubernetes/securekubernetes/master/manifests/security2-policies.yaml
 ```
 
-- Tries to kubectl run privileged container and sees it's blocked.
+Let's see if this actually works:
 
-- Blue contacts boss and says "Houston, we have a problem".
+```console
+kubectl run alpine --image=alpine --restart=Never
+```
+
+```console
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Pod
+metadata:
+  name: privileged-pod
+spec:
+  containers:
+  - name: ubuntu
+    image: ubuntu
+    stdin: true
+    securityContext:
+      privileged: true
+EOF
+```
+
+It works!
+
+I should call the boss about this incident.
