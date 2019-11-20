@@ -1,0 +1,62 @@
+site_name: KubeCon NA 2019 Tutorial Guide
+repo_name: 'securekubernetes/securekubernetes'
+repo_url: 'https://github.com/securekubernetes/securekubernetes'
+dev_addr: 0.0.0.0:8080
+
+theme:
+  name: 'material'
+  palette:
+    primary: 'red'
+    accent: 'red'
+  logo:
+    icon: 'cloud'
+  feature:
+    tabs: false
+
+nav:
+  - Getting Connected: index.md
+  - Scenario 1 Attack: scenario_1_attack.md
+  - Scenario 1 Defense: scenario_1_defense.md
+  - Scenario 2 Attack: scenario_2_attack.md
+  - Scenario 2 Defense: scenario_2_defense.md
+  #- Bonus Challenges: bonus_challenges.md
+  #- Bonus Challenge Hints: bonus_hints.md
+  #- Bonus 1 Walkthrough: bonus_1_walkthrough.md
+  #- Bonus 2 Walkthrough: bonus_2_walkthrough.md
+markdown_extensions:
+  - markdown.extensions.admonition
+  - markdown.extensions.codehilite:
+      guess_lang: false
+  - markdown.extensions.def_list
+  - markdown.extensions.footnotes
+  - markdown.extensions.meta
+  - markdown.extensions.toc:
+      permalink: true
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: squidfunk
+      repo: mkdocs-material
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+extra:
+  search:
+    language: 'en'
+    tokenizer: '[\s\-\.]+'
+  social:
+    - type: github-alt
+      link: https://github.com/tabbysable/kubeconctf19
