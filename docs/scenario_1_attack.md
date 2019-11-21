@@ -26,7 +26,7 @@ In the real world, use good judgement. Don't hurt people, don't get yourself in 
 __Red__ has been mining `bitcoinero` for a few months now, and it's starting to gain some value.  To capitalize on this bubble, __Red__ uses a service that sells shell access to expand the mining pool.  To find the compromised website, run the following from your Cloud Shell terminal:
 
 ```console
-check-email.sh
+./check-email.sh
 ```
 
 Log into the URL in a browser, and you should be looking at a working web terminal.

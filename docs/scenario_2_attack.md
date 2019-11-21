@@ -25,7 +25,7 @@ To see what she'd see, from the Cloud Shell Terminal, scan the hundred ports aro
 
 Your Cloud Shell has a little script to help:
 ```console
-attack-2-helper.sh
+./attack-2-helper.sh
 ```
 
 This scan confirms __DarkRed's__ suspicion that more services were present in this `cluster`. They all look like webservers, so explore them briefly with your browser.
