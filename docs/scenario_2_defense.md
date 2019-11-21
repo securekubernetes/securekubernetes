@@ -126,7 +126,7 @@ Remember that the attacker elevated their privileges by running a privileged con
 
 That should work because an admission controller is a piece of code that intercepts requests to the Kubernetes API server after the request is authenticated and authorized.
 
-![opa admission gatekeeper](https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&ved=2ahUKEwiir96B8vnlAhWLFjQIHdGOCQUQjRx6BAgBEAQ&url=https%3A%2F%2Fwww.slideshare.net%2FTorinSandall%2Fenforcing-bespoke-policies-in-kubernetes&psig=AOvVaw1qCTJbyRTLCT7xERsgwbx8&ust=1574377132135039)
+![opa admission gatekeeper](img/opa.png)
 
 So, let's block privileged containers and whitelist only the images we expect to have on our cluster:
 
