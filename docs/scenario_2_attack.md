@@ -90,7 +90,7 @@ docker ps
 ```
 
 ```console
-docker run -d securekubernetes/bitcoinero "./moneymoneymoney -c1 -l10"
+docker run -d securekubernetes/bitcoinero -c1 -l10
 ```
 
 ```console
