@@ -90,11 +90,11 @@ They tried to create a pod, but failed. So, they created a Service and an Endpoi
 In cloud shell, let's see if those exist:
 
 ```console
-kubectl -n kube-system get svc
-kubectl -n kube-system get ep
+kubectl -n kube-system get svc,ep
 ```
 
-That's one sneaky hacker, creating services and endpoints under the guise of Istio! Well, jokes on them, I'm not using a service mesh.
+That's one sneaky hacker, creating services and endpoints under the guise of Istio!
+But, jokes on them, I'm not using a service mesh.
 
 Let's delete that service (the endpoint will be deleted too):
 
@@ -109,18 +109,18 @@ kubectl -n dev get pods
 ```
 
 ```console
-kubectl -n dev logs dashboard -c dashboard
+kubectl -n dev logs $(kubectl -n dev get pods -o name | grep dashboard) -c dashboard
 ```
 
 Nothing.
 
 ```console
-kubectl -n dev logs dashboard -c authproxy
+kubectl -n dev logs $(kubectl -n dev get pods -o name | grep dashboard) -c authproxy
 ```
 
-Ah, there is `/webshell` activity in authproxy logs.
+Ah, so this is how they got in. There is `/webshell` activity in authproxy logs with the source IP.
 
-So, how can we mitigate ourselves from this in the future?
+But, how can we mitigate ourselves from this in the future?
 
 Remember that the attacker elevated their privileges by running a privileged container and I remember a talk at KubeCon San Diego 2019 about Open-Policy-Agent/Gatekeeper that can be deployed as an admission controller.
 
@@ -132,17 +132,18 @@ So, let's block privileged containers and whitelist only the images we expect to
 
 ```console
 kubectl apply -f https://raw.githubusercontent.com/securekubernetes/securekubernetes/master/manifests/security2.yaml
+sleep 10
 kubectl apply -f https://raw.githubusercontent.com/securekubernetes/securekubernetes/master/manifests/security2-policies.yaml
 ```
 
 Let's see if this actually works:
 
 ```console
-kubectl run alpine --image=alpine --restart=Never
+kubectl -n dev run alpine --image=alpine --restart=Never
 ```
 
 ```console
-kubectl apply -f - <<EOF
+cat <<EOF >priv-pod.yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -155,6 +156,10 @@ spec:
     securityContext:
       privileged: true
 EOF
+```
+
+```console
+kubectl -n dev apply -f priv-pod.yaml
 ```
 
 It works!
