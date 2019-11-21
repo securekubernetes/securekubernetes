@@ -115,8 +115,6 @@ Going back to the <a href="https://console.cloud.google.com/logs/viewer" target=
 resource.type="container"
 resource.labels.namespace_id="falco"
 resource.labels.container_name="falco"
-severity!="ERROR"
-textPayload=""
 ```
 
 ### Reviewing the Falco Rules:
