@@ -33,9 +33,9 @@ Log into the URL in a browser, and you should be looking at a working web termin
 
 ![webshell screenshot](img/webshell.png)
 
-## Thinking In Trees
+## Thinking In Graphs
 
-Attacking a system is a problem-solving process similar to troubleshooting: __Red__ begins with a goal (deploy an unauthorized cryptominer) but doesn't really know what resources are available to achieve that goal. They will have to start with what little they already know, perform tests to learn more, and develop a plan.
+Attacking a system is a problem-solving process similar to troubleshooting: __Red__ begins with a goal (deploy an unauthorized cryptominer) but doesn't really know what resources are available to achieve that goal. They will have to start with what little they already know, perform tests to learn more, and develop a plan. The plan is ever-evolving as new information is gleaned.
 
 The general process looks like this:
 
