@@ -12,7 +12,7 @@ Welcome to the [KubeCon NA 2019](https://events19.linuxfoundation.org/events/kub
         For the best possible experience, every participant should interact with their own dedicated environment to avoid accidental contention when running commands that modify the environment.  We encourage working together with your neighbor--each working in their own cluster.
    
 
-1. Using an __incognito browser window__, visit [![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.svg)](https://console.cloud.google.com/kubernetes/list?cloudshell=true&project=gke-ctf-dev1&cloudshell_git_repo=https://github.com/securekubernetes/cloud-shell-setup&shellonly=true) and sign in with your credentials.
+1. Using an __incognito browser window__, visit <a href="https://console.cloud.google.com/kubernetes/list?cloudshell=true&project=gke-ctf-dev1&cloudshell_git_repo=https://github.com/securekubernetes/cloud-shell-setup&shellonly=true"target="_blank"><img src="https://gstatic.com/cloudssh/images/open-btn.svg" /></a> and sign in with your credentials.
 
 1. Accept the Terms:
 
