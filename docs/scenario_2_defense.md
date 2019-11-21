@@ -121,7 +121,15 @@ kubectl -n dev logs $(kubectl -n dev get pods -o name | grep dashboard) -c authp
 
 It is an exposed dashboard. That's how they got in. There is `GET /webshell` in authproxy logs with the source IP.
 
-I might want to disable automatically mounting the serviceaccount token by setting `automountServiceAccountToken: false` in the pod spec. But, how can we mitigate this further?
+We might want to revoke that serviceaccount token: 
+
+```console
+kubectl -n dev delete $(kubectl -n dev get secret -o name| grep default)
+```
+
+And perhaps disable the automatic mounting of serviceaccount tokens by setting `automountServiceAccountToken: false` in the pod spec, if the dashboard doesn't need it. 
+
+But, how can we mitigate this further?
 
 The attacker ran a privileged container, which they shouldn't have been able to. So, we should block that. I remember a talk at KubeCon this week about <a href="https://github.com/open-policy-agent/gatekeeper" target="_blank">Open-Policy-Agent/Gatekeeper</a> that gets deployed as an admission controller.
 
@@ -138,7 +146,7 @@ kubectl apply -f https://raw.githubusercontent.com/securekubernetes/securekubern
 sleep 15 # Allow time for the Dynamic Admission Controller to take effect
 ```
 
-Let's see if this actually works (sometimes it takes a few seconds for policies to take effect):
+Let's see if this actually works:
 
 ```console
 kubectl -n dev run alpine --image=alpine --restart=Never
