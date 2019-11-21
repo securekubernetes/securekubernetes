@@ -28,4 +28,4 @@ spec:
       - "dev"
   parameters:
     repos:
-      - "open-policy-agent/opa"
+      - "open-policy-agent"
