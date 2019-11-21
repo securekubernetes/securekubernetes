@@ -135,6 +135,7 @@ So, we can set a policy that will deny privileged containers and allow only the 
 kubectl apply -f https://raw.githubusercontent.com/securekubernetes/securekubernetes/master/manifests/security2.yaml
 sleep 10
 kubectl apply -f https://raw.githubusercontent.com/securekubernetes/securekubernetes/master/manifests/security2-policies.yaml
+sleep 15 # Allow time for the Dynamic Admission Controller to take effect
 ```
 
 Let's see if this actually works (sometimes it takes a few seconds for policies to take effect):
