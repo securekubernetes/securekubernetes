@@ -43,7 +43,7 @@ kubectl top pod --all-namespaces
 
 So far, everything looks normal. What gives?
 
-Remembering that `falco` was deployed for runtime visibility and monitoring last time, we seem to be getting alerts from StackDriver filters.
+Hold on. We installed `falco` last time and it is throwing us alerts in StackDriver.
 
 In a new <a href="https://console.cloud.google.com/logs/viewer" target="_blank">StackDriver window</a>, let's run the query:
 
@@ -55,9 +55,9 @@ jsonPayload.rule="Launch Privileged Container" OR jsonPayload.rule="Terminal she
 
 We're looking for `container` logs from `falco` where triggered rules are privileged containers or interactive shells.
 
-Huh. This is definitely odd. What is this privileged `alpine` container?
+Huh. This is odd. A privileged `alpine` container, but no other information to go off of? What can kubernetes cluster logs tell us about this `alpine` container?
 
-In a new <a href="https://console.cloud.google.com/logs/viewer" target="_blank">StackDriver window</a>, let's correlate this with kubernetes cluster logs:
+In a new <a href="https://console.cloud.google.com/logs/viewer" target="_blank">StackDriver window</a>, let's run this query:
 
 ```console
 resource.type=k8s_cluster
@@ -66,13 +66,13 @@ protoPayload.request.spec.containers.image="alpine"
 
 So, we see a few things:
 
-1. References to `dev` namespace and serviceaccount `system:serviceaccount:dev:default`
+1. A create event that was authorized with the `system:serviceaccount:dev:default` serviceaccount in the `dev` namespace.
 1. A pod named `r00t` got created
 1. The pod command is `nsenter --mount=/proc/1/ns/mnt -- /bin/bash`
 1. The `securityContext` is `privileged: true`
 1. The `hostPID` is set to `true`
 
-This is not looking good. Can we see any activity in this container?
+This is not looking good. Can we see what this container did?
 
 In a new <a href="https://console.cloud.google.com/logs/viewer" target="_blank">StackDriver window</a>, let's search for this `r00t` container logs:
 
@@ -81,20 +81,21 @@ resource.type="container"
 resource.labels.pod_id:r00t
 ```
 
-Wow. We are seeing some commands executed from the container.
+Wow. We can see someone was running commands from this container.
 
-But wait, looks like they're directly on the node.
+But wait, they can run docker commands? How can they talk to the docker on the host from the container? OH NO! They must have broken out of the container and by this point they're on the host!
 
-They tried to create a pod, but failed. So, they created a Service and an Endpoint.
+That `bitcoinero` container again must be what's causing slowness. But, they're trying to do something else.
 
-In cloud shell, let's see if those exist:
+They tried to create a pod, but failed. So, they created a Service and an Endpoint. They must be trying to open a backdoor of some sort to get back in later.
+
+In cloud shell, let's check if those exist:
 
 ```console
 kubectl -n kube-system get svc,ep
 ```
 
-That's one sneaky hacker, creating services and endpoints under the guise of Istio!
-But, jokes on them, I'm not using a service mesh.
+That's one sneaky hacker, for sure. But, jokes on them, We're not using service mesh.
 
 Let's delete that service (the endpoint will be deleted too):
 
@@ -102,33 +103,33 @@ Let's delete that service (the endpoint will be deleted too):
 kubectl -n kube-system delete svc/istio-mgmt
 ```
 
-But, how did this happen?!?!?! What is in `dev` namespace that led to someone running commands on the nodes?
+But, I want to know how did they get in in the first place?!?!?! The `create` event authorized because of the `dev:default` serviceaccount. So, what is in `dev` namespace that led to someone taking over the entire host?
 
 ```console
 kubectl -n dev get pods
 ```
 
+There is an `app`, a `db`, and a `dashboard`. Wait a second! Could it be an exposed dashboard?
+
 ```console
 kubectl -n dev logs $(kubectl -n dev get pods -o name | grep dashboard) -c dashboard
 ```
-
-Nothing.
 
 ```console
 kubectl -n dev logs $(kubectl -n dev get pods -o name | grep dashboard) -c authproxy
 ```
 
-Ah, so this is how they got in. There is `/webshell` activity in authproxy logs with the source IP.
+It is an exposed dashboard. That's how they got in. There is `GET /webshell` in authproxy logs with the source IP.
 
-But, how can we mitigate ourselves from this in the future?
+I might want to disable automatically mounting the serviceaccount token by setting `automountServiceAccountToken: false` in the pod spec. But, how can we mitigate this further?
 
-Remember that the attacker elevated their privileges by running a privileged container and I remember a talk at KubeCon San Diego 2019 about Open-Policy-Agent/Gatekeeper that can be deployed as an admission controller.
+The attacker ran a privileged container, which they shouldn't have been able to. So, we should block that. I remember a talk at KubeCon this week about Open-Policy-Agent/Gatekeeper that gets deployed as an admission controller.
 
 That should work because an admission controller is a piece of code that intercepts requests to the Kubernetes API server after the request is authenticated and authorized.
 
 ![opa admission gatekeeper](img/opa.png)
 
-So, let's block privileged containers and whitelist only the images we expect to have on our cluster:
+So, we can set a policy that will deny privileged containers and allow only the images we expect to have on our cluster:
 
 ```console
 kubectl apply -f https://raw.githubusercontent.com/securekubernetes/securekubernetes/master/manifests/security2.yaml
@@ -136,7 +137,7 @@ sleep 10
 kubectl apply -f https://raw.githubusercontent.com/securekubernetes/securekubernetes/master/manifests/security2-policies.yaml
 ```
 
-Let's see if this actually works:
+Let's see if this actually works (sometimes it takes a few seconds for policies to take effect):
 
 ```console
 kubectl -n dev run alpine --image=alpine --restart=Never
@@ -164,4 +165,4 @@ kubectl -n dev apply -f priv-pod.yaml
 
 It works!
 
-I should call the boss about this incident.
+I should tell the boss about this.
