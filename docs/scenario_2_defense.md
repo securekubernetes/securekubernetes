@@ -123,7 +123,7 @@ It is an exposed dashboard. That's how they got in. There is `GET /webshell` in 
 
 I might want to disable automatically mounting the serviceaccount token by setting `automountServiceAccountToken: false` in the pod spec. But, how can we mitigate this further?
 
-The attacker ran a privileged container, which they shouldn't have been able to. So, we should block that. I remember a talk at KubeCon this week about Open-Policy-Agent/Gatekeeper that gets deployed as an admission controller.
+The attacker ran a privileged container, which they shouldn't have been able to. So, we should block that. I remember a talk at KubeCon this week about <a href="https://github.com/open-policy-agent/gatekeeper" target="_blank">Open-Policy-Agent/Gatekeeper</a> that gets deployed as an admission controller.
 
 That should work because an admission controller is a piece of code that intercepts requests to the Kubernetes API server after the request is authenticated and authorized.
 
