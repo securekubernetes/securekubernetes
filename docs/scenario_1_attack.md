@@ -152,7 +152,7 @@ Let's inspect what all we __can__ do:
 kubectl auth can-i --list
 ```
 
-Can we create `pods`?:
+Can we create pods in this namespace?
 
 ```console
 kubectl auth can-i create pods
