@@ -39,8 +39,9 @@ Now, let's become __DarkRed__ and leverage this new access:
 The webshell can be found at <a href="http://your-ip:31336/webshell/" target="_blank">http://your-ip:31336/webshell/</a>, and uses your workshop credentials as before.
 
 Your Cloud Shell has a little script to help:
+
 ```console
-attack-2-helper.sh
+./attack-2-helper.sh
 ```
 
 Run a few commands to make sure it's working and gather some basic information:
