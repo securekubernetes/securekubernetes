@@ -152,6 +152,12 @@ Let's inspect what all we __can__ do:
 kubectl auth can-i --list
 ```
 
+Can we create `pods`?:
+
+```console
+kubectl auth can-i create pods
+```
+
 Happy day! Our service account is admin in our pod's namespace! Maybe the dashboard on port 31337 needs that much access? Anyway, this gives us what we need to achieve our goals.
 
 ```console
