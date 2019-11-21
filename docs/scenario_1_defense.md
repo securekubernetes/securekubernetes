@@ -98,7 +98,7 @@ kubectl delete service dashboard -n prd
 It's now very clear to __Blue__ that without additional information, it's difficult to determine exactly _who_ or _what_ created that `bitcoinero` deployment.  Was it code?  Was it a human?  __Blue__ suspects it was one of the engineers on the team, but there's not much they can do without proof.  Remembering that this `cluster` doesn't have any runtime behavior monitoring and detection software installed, __Blue__ decides to install <a href="https://falco.org" target="_blank">Sysdig's Falco</a> using an all-in-one manifest from a prominent blogger.
 
 ```console
-kubectl apply -f security.yml
+kubectl apply -f https://raw.githubusercontent.com/securekubernetes/securekubernetes/master/manifests/security.yml
 ```
 
 Just to make sure it's working, __Blue__ runs the following command to get the logs from the deployed `Falco` `pod(s)`:
