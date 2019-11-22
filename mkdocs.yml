@@ -21,8 +21,8 @@ nav:
   - Scenario 2 Defense: scenario_2_defense.md
   - Bonus Challenges: bonus_challenges.md
   - Bonus Challenge Hints: bonus_hints.md
-  #- Bonus 1 Walkthrough: bonus_1_walkthrough.md
-  #- Bonus 2 Walkthrough: bonus_2_walkthrough.md
+  - Bonus 1 Walkthrough: bonus_1_walkthrough.md
+  - Bonus 2 Walkthrough: bonus_2_walkthrough.md
 markdown_extensions:
   - markdown.extensions.admonition
   - markdown.extensions.codehilite:
