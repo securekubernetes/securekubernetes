@@ -174,7 +174,7 @@ We see that Kubernetes rejected this request again due to image not being whitel
 
 Can we still run pods that meet/satisfy the Gatekeeper policies? Let's find out:
 
-```
+```console
 kubectl -n dev run ubuntu --image=ubuntu --restart=Never
 ```
 
