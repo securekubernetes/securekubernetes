@@ -137,41 +137,47 @@ That should work because an admission controller is a piece of code that interce
 
 ![opa admission gatekeeper](img/opa.png)
 
-So, we can set a policy that will deny privileged containers and allow only the images we expect to have on our cluster:
+So, we should set two policies:
+
+1. Deny privileged containers.
+1. Allow only the images we expect to have in `dev` and `prd` namespaces.
+
+First, let's apply Gatekeeper itself:
 
 ```console
 kubectl apply -f https://raw.githubusercontent.com/securekubernetes/securekubernetes/master/manifests/security2.yaml
-sleep 10
-kubectl apply -f https://raw.githubusercontent.com/securekubernetes/securekubernetes/master/manifests/security2-policies.yaml
-sleep 15 # Allow time for the Dynamic Admission Controller to take effect
 ```
 
-Let's see if this actually works:
+Second, let's apply the policies. If you receive an error about `no matches for kind... in version ...`, this means Gatekeeper has not kicked into gear yet. Wait a few seconds then re-apply policies:
+
+```console
+kubectl apply -f https://raw.githubusercontent.com/securekubernetes/securekubernetes/master/manifests/security2-policies.yaml
+```
+
+Let's see if this actually works by trying to run some containers that violate these policies.
+
+First, let's try to run privileged container:
+
+```console
+kubectl -n dev run ubuntu --image=ubuntu --privileged --restart=Never
+```
+
+We see that Kubernetes denied this request for 2 reasons (not whitelisted image and privileged), as expected.
+
+Let's try running a non-whitelisted image:
 
 ```console
 kubectl -n dev run alpine --image=alpine --restart=Never
 ```
 
-```console
-cat <<EOF >priv-pod.yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: privileged-pod
-spec:
-  containers:
-  - name: ubuntu
-    image: ubuntu
-    stdin: true
-    securityContext:
-      privileged: true
-EOF
+We see that Kubernetes rejected this request again due to image not being whitelisted/allowed, as expected.
+
+Can we still run pods that meet/satisfy the Gatekeeper policies? Let's find out:
+
+```
+kubectl -n dev run ubuntu --image=ubuntu --restart=Never
 ```
 
-```console
-kubectl -n dev apply -f priv-pod.yaml
-```
+Yes, looks like we can run pods that satisfy the policies and requirements we set on our cluster.
 
-It works!
-
-I should tell the boss about this.
+Even though we applied Falco and Gatekeeper, we should not continue to use this cluster since it has been compromised. We should create a new cluster and re-deploy our applications there once we've hardened and secured it enough.
