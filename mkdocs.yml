@@ -59,4 +59,4 @@ extra:
     tokenizer: '[\s\-\.]+'
   social:
     - type: github-alt
-      link: https://github.com//securekubernetes/securekubernetes
+      link: https://github.com/securekubernetes/securekubernetes
