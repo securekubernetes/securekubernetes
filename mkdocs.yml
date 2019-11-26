@@ -59,4 +59,4 @@ extra:
     tokenizer: '[\s\-\.]+'
   social:
     - type: github-alt
-      link: https://github.com/tabbysable/kubeconctf19
+      link: https://github.com//securekubernetes/securekubernetes
