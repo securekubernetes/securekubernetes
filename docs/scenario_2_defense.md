@@ -159,7 +159,22 @@ Let's see if this actually works by trying to run some containers that violate t
 First, let's try to run privileged container:
 
 ```console
-kubectl -n dev run ubuntu --image=ubuntu --privileged --restart=Never
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    ports:
+    - containerPort: 80
+    securityContext:
+      privileged: true
+EOF
 ```
 
 We see that Kubernetes denied this request for 2 reasons (not whitelisted image and privileged), as expected.
