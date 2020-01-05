@@ -48,7 +48,7 @@ Hold on. We installed `falco` last time and it is throwing us alerts in StackDri
 In a new <a href="https://console.cloud.google.com/logs/viewer" target="_blank">StackDriver window</a>, let's run the query:
 
 ```console
-resource.type="container"
+resource.type="k8s_container"
 resource.labels.container_name:"falco"
 jsonPayload.rule="Launch Privileged Container" OR jsonPayload.rule="Terminal shell in container"
 ```
@@ -77,8 +77,8 @@ This is not looking good. Can we see what this container did?
 In a new <a href="https://console.cloud.google.com/logs/viewer" target="_blank">StackDriver window</a>, let's search for this `r00t` container logs:
 
 ```console
-resource.type="container"
-resource.labels.pod_id:r00t
+resource.type="k8s_container"
+resource.labels.pod_name:r00t
 ```
 
 Wow. We can see someone was running commands from this container.
