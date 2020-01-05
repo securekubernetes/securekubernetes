@@ -1,50 +1,29 @@
 # KubeCon NA 2019 CTF
 
-## Introduction
+Welcome to the Attacking and Defending Kubernetes Clusters: A Guided Tour Walkthrough Guide, as [presented at KubeCon NA 2019](https://www.youtube.com/watch?v=UdMFTdeAL1s). We'll help you create your own Kubernetes environment so you can follow along as we take on the role of two attacking personas looking to make some money and one defending persona working hard to keep the cluster safe and healthy.
 
-Welcome to the [KubeCon NA 2019](https://events19.linuxfoundation.org/events/kubecon-cloudnativecon-north-america-2019/) Tutorial: [Attacking and Defending Kubernetes Clusters: A Guided Tour](https://sched.co/Uaew) Walkthrough Guide.  Each participant will be given access to their own account with direct access to their own Kubernetes cluster environment.  Follow along as we take on the role of two attacking personas looking to make some money and one defending persona working hard to keep the cluster safe and healthy.
+!!! note "Use the Copy to Clipboard Feature"
+Each terminal command block in this guide has a double-square icon on the far right side which automatically copies the content to your paste buffer to make things easier to follow along.
 
-## Getting Connected
+## Getting Started
 
-1. Get a "credential card" from one of the room assistants.  Do not share these credentials with others unless you are planning on working together.
+Click on "Getting Started" in the table of contents and follow the directions.
 
-    !!! warning "A Note on Sharing Credentials"
-        For the best possible experience, every participant should interact with their own dedicated environment to avoid accidental contention when running commands that modify the environment.  We encourage working together with your neighbor--each working in their own cluster.
-   
+When a kubectl get pods --all-namespaces gives output like the following, you're ready to begin the tutorial.
 
-1. If you're not already in an Incognito/Private window, <a href="https://securekubernetes.com">right-click this link and choose "Open Link in Incognito Window"</a> (or similar option).
+```
+$ kubectl get pods --all-namespaces
+NAMESPACE     NAME                                         READY   STATUS    RESTARTS   AGE
+dev           app-6ffb94966d-9nqnk                         1/1     Running   0          70s
+dev           dashboard-5889b89d4-dj7kq                    2/2     Running   0          70s
+dev           db-649646fdfc-kzp6g                          1/1     Running   0          70s
+...
+prd           app-6ffb94966d-nfhn7                         1/1     Running   0          70s
+prd           dashboard-7b5fbbc459-sm2zk                   2/2     Running   0          70s
+prd           db-649646fdfc-vdwj6                          1/1     Running   0          70s
 
-1. Right-click the button below, choose "Open in New Tab", and sign in with your credentials.<br>
-[![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.svg)](https://console.cloud.google.com/kubernetes/list?cloudshell=true&cloudshell_git_repo=https://github.com/securekubernetes/cloud-shell-setup&shellonly=true)
+```
 
-1. Accept the Terms:
-
-    ![terms](img/terms.png)
-
-1. Accept the next set of Terms:
-
-    ![terms](img/tos.png)
-
-1. Check "I Agree..." and then __Start Cloud Shell__: 
-
-    ![terms](img/cloudshell-terms.png)
-
-1. At the top of the Browser window, click __Dismiss__ on the free GCP Trial banner if you see it.
-
-1. Once inside the Cloud Shell terminal, run:
-    ```console
-    ./setup.sh
-    ```
-
-    !!! note "Use the Copy to Clipboard Feature"
-        Each terminal command block in this guide has a double-square icon on the far right side which automatically copies the content to your paste buffer to make things easier to follow along.
-    
-1. Next, run:
-    ```console
-    kubectl get pods --all-namespaces
-    ```
-1. If you see a pod listing, you are all set. __Wait at this point until we work together as a group__.
-1. If your neighbor needs assistance, please ask if they would like assistance and do so if they accept.  If you are having even greater difficulty, please raise your hand for room assistant help.
 
 ## About the Creators
 
