@@ -112,8 +112,8 @@ kubectl logs -n falco $(kubectl get pod -n falco -l app=falco -o=name) -f
 Going back to the <a href="https://console.cloud.google.com/logs/viewer" target="_blank">logging system</a>, __Blue__ enters another log filter using the "advanced filter" with the following query to confirm it's receiving all the logs coming from the `Falco` `deployment`:
 
 ```console
-resource.type="container"
-resource.labels.namespace_id="falco"
+resource.type=k8s_container
+resource.labels.namespace_name="falco"
 resource.labels.container_name="falco"
 ```
 
