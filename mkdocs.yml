@@ -24,6 +24,7 @@ nav:
   - Bonus Challenge Hints: bonus_hints.md
   - Bonus 1 Walkthrough: bonus_1_walkthrough.md
   - Bonus 2 Walkthrough: bonus_2_walkthrough.md
+  - Wrap Up: wrapup.md
 markdown_extensions:
   - markdown.extensions.admonition
   - markdown.extensions.codehilite:
