@@ -59,7 +59,7 @@ Once there, __Blue__ clicks on the small "down arrow" on the far right of the "F
 
 ```console
 resource.type="k8s_cluster"
-protoPayload.authorizationInfo.permission="io.k8s.extensions.v1beta1.deployments.create"
+protoPayload.authorizationInfo.permission="io.k8s.apps.v1.deployments.create"
 ```
 
 ![Stackdriver Log Filter of Default Service Account](img/sd-prd.png)
