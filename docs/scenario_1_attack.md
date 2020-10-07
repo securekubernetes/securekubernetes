@@ -162,7 +162,7 @@ Happy day! Our service account is admin in our pod's namespace! Maybe the dashbo
 
 ```console
 cd /tmp; cat > bitcoinero.yml <<EOF
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
