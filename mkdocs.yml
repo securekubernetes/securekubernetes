@@ -8,11 +8,13 @@ theme:
   palette:
     primary: 'red'
     accent: 'red'
-  logo:
-    icon: 'cloud'
-  feature:
-    tabs: false
-
+  icon:
+    logo: material/cloud
+plugins:
+  - search:
+      separator: '[\s\-\.]+'
+      lang:
+        - en
 nav:
   - Introduction: index.md
   - Getting Started: gke.md
@@ -56,9 +58,6 @@ markdown_extensions:
   - pymdownx.tilde
 
 extra:
-  search:
-    language: 'en'
-    tokenizer: '[\s\-\.]+'
   social:
-    - type: github-alt
+    - icon: fontawesome/brands/github-alt
       link: https://github.com/securekubernetes/securekubernetes
