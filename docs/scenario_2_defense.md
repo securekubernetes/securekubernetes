@@ -11,9 +11,9 @@
 
 ### Motivations
 
-* A week after the first incident, __Blue__ gets paged at 3am because “website is slow again”.
+* A week after the first incident, __Blue__ gets paged at 3am because “the website is slow again”.
 * __Blue__, puzzled, takes another look.
-* __Blue__ decides to dust-off the résumé “just in case”.
+* __Blue__ decides to dust off the résumé “just in case”.
 
 ## Defense
 
@@ -55,7 +55,7 @@ jsonPayload.rule="Launch Privileged Container" OR jsonPayload.rule="Terminal she
 
 We're looking for `container` logs from `falco` where triggered rules are privileged containers or interactive shells.
 
-Huh. This is odd. A privileged `alpine` container, but no other information to go off of? What can kubernetes cluster logs tell us about this `alpine` container?
+Huh. This is odd. A privileged `alpine` container, but no other information to go off of? What can Kubernetes cluster logs tell us about this `alpine` container?
 
 In a new <a href="https://console.cloud.google.com/logs/viewer" target="_blank">StackDriver window</a>, let's run this query:
 

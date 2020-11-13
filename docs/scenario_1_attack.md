@@ -4,7 +4,7 @@
 
 In these Attack scenarios, we're going to be doing a lot of things that can be crimes if done without permission. Today, you have permission to perform these kinds of attacks against your assigned training environment.
 
-In the real world, use good judgement. Don't hurt people, don't get yourself in trouble. Only perform security assessments against your own systems, or with written permission from the owners.
+In the real world, use good judgment. Don't hurt people, don't get yourself in trouble. Only perform security assessments against your own systems, or with written permission from the owners.
 
 ## Backstory
 
