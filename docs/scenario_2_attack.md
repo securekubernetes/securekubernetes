@@ -4,7 +4,7 @@
 
 ### Name: __DarkRed__
 
-* Highly-Skilled
+* Highly Skilled
 * Sells Exfiltrated Data for $$
 * Evades detection and employs persistence
 * Uses env-specific tooling
@@ -13,13 +13,13 @@
 
 ### Motivations
 
-* __Red__ notices that the website is gone and the crypto-miners have stopped reporting in.
+* __Red__ notices that the website is gone and the cryptominers have stopped reporting in.
 * __Red__ asks __DarkRed__ for help trying to get back into the Kubernetes cluster and gives __DarkRed__ the IP address.
 * __Red__ will split the revenue if __DarkRed__ can get the miners back up and running.
 
 ## Initial Foothold
 
-Seeing that the URL included port `31337` and that __Red__ said it was a Kubernetes `cluster`, it was likely to be exposed via a `NodePort` `service`. With this information she has a feeling that more `services` might still be exposed to the web this way. __DarkRed__ starts with indirect enumeration, such as searching on shodan.io, and follows up with direct portscanning via `nmap`.
+Seeing that the URL included port `31337` and that __Red__ said it was a Kubernetes `cluster`, it was likely to be exposed via a `NodePort` `service`. With this information, she has a feeling that more `services` might still be exposed to the web this way. __DarkRed__ starts with indirect enumeration, such as searching on shodan.io, and follows up with direct port scanning via `nmap`.
 
 To see what she'd see, from the Cloud Shell Terminal, scan the hundred ports around 31337 using a command similar to "nmap -sT -A -p 31300-31399 -T4 -n -v -Pn your-ip-address-goes-here". Be absolutely sure to scan your assigned IP address.
 
@@ -63,7 +63,7 @@ kubectl auth can-i --list
 
 Now that we've reviewed the basic limits of our access, let's see if we can take over the host. If we can, that will give us many more options to fulfill our nefarious whims.
 
-Using <a href="https://twitter.com/mauilion/status/1129468485480751104" target="_blank">a neat trick from twitter</a>, let's attempt to deploy a container that gives us full host access:
+Using <a href="https://twitter.com/mauilion/status/1129468485480751104" target="_blank">a neat trick from Twitter</a>, let's attempt to deploy a container that gives us full host access:
 
 ```console
 kubectl run r00t --restart=Never -ti --rm --image lol --overrides '{"spec":{"hostPID": true, "containers":[{"name":"1","image":"alpine","command":["nsenter","--mount=/proc/1/ns/mnt","--","/bin/bash"],"stdin": true,"tty":true,"imagePullPolicy":"IfNotPresent","securityContext":{"privileged":true}}]}}'
@@ -102,7 +102,7 @@ Now that __DarkRed__ has fulfilled her end of the agreement and the miners are r
 
 It would be nice to leave a backdoor for future access. Let's become __DarkRed__ again and see what we can do:
 
-First, let's steal the kubelet's client certificate, and check to see if it has hightened permissions:
+First, let's steal the kubelet's client certificate, and check to see if it has heightened permissions:
 
 ```console
 ps -ef | grep kubelet

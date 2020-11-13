@@ -41,4 +41,4 @@ prd           db-649646fdfc-vdwj6                          1/1     Running   0  
 
 ```
 
-If it looks good, move on to Scenaro 1 Attack.
+If it looks good, move on to Scenario 1 Attack.

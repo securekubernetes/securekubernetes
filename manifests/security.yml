@@ -14,7 +14,7 @@ metadata:
     role: security
 ---
 kind: ClusterRole
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: falco-cluster-role
   labels:
@@ -28,7 +28,7 @@ rules:
     verbs: ["get"]
 ---
 kind: ClusterRoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: falco-cluster-role-binding
   namespace: falco
@@ -3334,7 +3334,7 @@ data:
       source: k8s_audit
       tags: [k8s]
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: falco-daemonset
@@ -3343,6 +3343,10 @@ metadata:
     app: falco
     role: security
 spec:
+  selector:
+    matchLabels:
+        app: falco
+        role: security
   template:
     metadata:
       labels:

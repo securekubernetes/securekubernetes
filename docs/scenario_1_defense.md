@@ -11,7 +11,7 @@
 
 ### Motivations
 
-* __Blue__ gets paged at 1am with an “urgent” problem: the developers say the “website is slow”
+* __Blue__ gets paged at 1am with an “urgent” problem: the developers say “the website is slow”
 * __Blue__ reluctantly agrees to take a “quick look”
 * __Blue__ wants desperately to get back to sleep. Zzz
 
@@ -53,7 +53,7 @@ kubectl get pods --all-namespaces -o jsonpath="{..image}" | tr -s '[[:space:]]' 
 
 ### Confirming the Foreign Workload
 
-__Blue__ sends a message back to the developers asking for confirmation of the suspicious `bitcoinero` image, and they all agree they don't know who created the `deployment`. They also mention that someone accidentally deployed a `nodePort` for the production ops dashboard, and ask if __Blue__ can delete it for them. __Blue__ makes a mental note about the `nodePort` and then <a href="https://console.cloud.google.com/logs/viewer" target="_blank">opens a browser to the cluster log system</a>.
+__Blue__ sends a message back to the developers asking for confirmation of the suspicious `bitcoinero` image, and they all agree they don't know who created the `deployment`. They also mention that someone accidentally deployed a `nodePort` for the production ops dashboard, and ask if __Blue__ can delete it for them. __Blue__ makes a mental note about the `nodePort` and then <a href="https://console.cloud.google.com/logs/viewer" target="_blank">opens a browser to the cluster log system</a>, making sure to go to the Legacy Logs Viewer.
 
 Once there, __Blue__ clicks on the small "down arrow" on the far right of the "Filter by label or text" search bar, selects "Convert to advanced filter", and puts the following query into the search filter area:
 
