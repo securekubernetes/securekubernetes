@@ -6,11 +6,11 @@ WORKDIR=/data
 SERVEPORT=8080
 
 DOCKER=docker build -t $(IMAGEREPO):latest .
-COMMAND=docker run --rm -v `pwd`:$(WORKDIR)
+COMMAND=docker run --user=`id -u`:`id -g` --rm -v `pwd`:$(WORKDIR)
 BUILD=$(COMMAND) $(IMAGEREPO):latest build
 SERVE=$(COMMAND) -p $(SERVEPORT):$(SERVEPORT) $(IMAGEREPO):latest serve
-PUBLISH=$(COMMAND) -v $(HOME)/.gitconfig:/root/.gitconfig:ro -v $(HOME)/.ssh:/root/.ssh:ro -it $(IMAGEREPO):latest gh-deploy --clean
-DEBUGSHELL=$(COMMAND) -v $(HOME)/.gitconfig:/root/.gitconfig:ro -v $(HOME)/.ssh:/root/.ssh:ro -it --entrypoint "sh" $(IMAGEREPO):latest
+PUBLISH=$(COMMAND) -v /etc/passwd:/etc/passwd:ro -v /home:/home:ro -it $(IMAGEREPO):latest gh-deploy --clean
+DEBUGSHELL=$(COMMAND) -v /etc/passwd:/etc/passwd:ro -v /home:/home:ro -it --entrypoint "sh" $(IMAGEREPO):latest
 
 dockerbuild:
 	@echo "Building $(IMAGEREPO):latest"
