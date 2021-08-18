@@ -3356,7 +3356,7 @@ spec:
       serviceAccount: falco-account
       containers:
         - name: falco
-          image: falcosecurity/falco:0.17.1
+          image: falcosecurity/falco:0.29.1
           securityContext:
             privileged: true
 # Uncomment the 3 lines below to enable eBPF support for Falco.
@@ -3364,6 +3364,10 @@ spec:
 # Leave blank for the default probe location, or set to the path
 # of a precompiled probe.
           env:
+          - name: BPF_PROBE
+            value: ""
+          - name: FALCO_BPF_PROBE
+            value: "/root/.falco/falco-bpf.o"
           - name: SYSDIG_BPF_PROBE
             value: ""
           args: [ "/usr/bin/falco", "--cri", "/host/run/containerd/containerd.sock", "-K", "/var/run/secrets/kubernetes.io/serviceaccount/token", "-k", "https://$(KUBERNETES_SERVICE_HOST)", "-pk"]
