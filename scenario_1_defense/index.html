@@ -1,0 +1,785 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.4">
+    
+    
+      
+        <title>Scenario 1 Defense - KubeCon NA 2019 Tutorial Guide</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.f7f47774.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#ef5552">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="red" data-md-color-accent="red">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#free-compute-scenario-1-defense" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="KubeCon NA 2019 Tutorial Guide" class="md-header__button md-logo" aria-label="KubeCon NA 2019 Tutorial Guide" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.35 10.03A7.49 7.49 0 0 0 12 4C9.11 4 6.6 5.64 5.35 8.03A6.004 6.004 0 0 0 0 14a6 6 0 0 0 6 6h13a5 5 0 0 0 5-5c0-2.64-2.05-4.78-4.65-4.97z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            KubeCon NA 2019 Tutorial Guide
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Scenario 1 Defense
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/securekubernetes/securekubernetes/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    securekubernetes/securekubernetes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="KubeCon NA 2019 Tutorial Guide" class="md-nav__button md-logo" aria-label="KubeCon NA 2019 Tutorial Guide" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.35 10.03A7.49 7.49 0 0 0 12 4C9.11 4 6.6 5.64 5.35 8.03A6.004 6.004 0 0 0 0 14a6 6 0 0 0 6 6h13a5 5 0 0 0 5-5c0-2.64-2.05-4.78-4.65-4.97z"/></svg>
+
+    </a>
+    KubeCon NA 2019 Tutorial Guide
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/securekubernetes/securekubernetes/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    securekubernetes/securekubernetes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gke/" class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scenario_1_attack/" class="md-nav__link">
+        Scenario 1 Attack
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Scenario 1 Defense
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Scenario 1 Defense
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#backstory" class="md-nav__link">
+    Backstory
+  </a>
+  
+    <nav class="md-nav" aria-label="Backstory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#name-blue" class="md-nav__link">
+    Name: Blue
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#motivations" class="md-nav__link">
+    Motivations
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#defense" class="md-nav__link">
+    Defense
+  </a>
+  
+    <nav class="md-nav" aria-label="Defense">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#identifying-the-issue" class="md-nav__link">
+    Identifying the Issue
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confirming-the-foreign-workload" class="md-nav__link">
+    Confirming the Foreign Workload
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cleaning-up" class="md-nav__link">
+    Cleaning Up
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installing-security-visibility" class="md-nav__link">
+    Installing Security Visibility
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ensuring-security-log-flow" class="md-nav__link">
+    Ensuring Security Log Flow
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reviewing-the-falco-rules" class="md-nav__link">
+    Reviewing the Falco Rules:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#giving-the-all-clear" class="md-nav__link">
+    Giving the "All Clear"
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scenario_2_attack/" class="md-nav__link">
+        Scenario 2 Attack
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scenario_2_defense/" class="md-nav__link">
+        Scenario 2 Defense
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bonus_challenges/" class="md-nav__link">
+        Bonus Challenges
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bonus_hints/" class="md-nav__link">
+        Bonus Challenge Hints
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bonus_1_walkthrough/" class="md-nav__link">
+        Bonus 1 Walkthrough
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bonus_2_walkthrough/" class="md-nav__link">
+        Bonus 2 Walkthrough
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wrapup/" class="md-nav__link">
+        Wrap Up
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#backstory" class="md-nav__link">
+    Backstory
+  </a>
+  
+    <nav class="md-nav" aria-label="Backstory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#name-blue" class="md-nav__link">
+    Name: Blue
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#motivations" class="md-nav__link">
+    Motivations
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#defense" class="md-nav__link">
+    Defense
+  </a>
+  
+    <nav class="md-nav" aria-label="Defense">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#identifying-the-issue" class="md-nav__link">
+    Identifying the Issue
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confirming-the-foreign-workload" class="md-nav__link">
+    Confirming the Foreign Workload
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cleaning-up" class="md-nav__link">
+    Cleaning Up
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installing-security-visibility" class="md-nav__link">
+    Installing Security Visibility
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ensuring-security-log-flow" class="md-nav__link">
+    Ensuring Security Log Flow
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reviewing-the-falco-rules" class="md-nav__link">
+    Reviewing the Falco Rules:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#giving-the-all-clear" class="md-nav__link">
+    Giving the "All Clear"
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/securekubernetes/securekubernetes/edit/master/docs/scenario_1_defense.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="free-compute-scenario-1-defense">Free Compute: Scenario 1 Defense<a class="headerlink" href="#free-compute-scenario-1-defense" title="Permanent link">&para;</a></h1>
+<h2 id="backstory">Backstory<a class="headerlink" href="#backstory" title="Permanent link">&para;</a></h2>
+<h3 id="name-blue">Name: <strong>Blue</strong><a class="headerlink" href="#name-blue" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Overworked</li>
+<li>Can only do the bare minimum</li>
+<li>Uses defaults when configuring systems</li>
+<li>Usually gets blamed for stability or security issues</li>
+</ul>
+<h3 id="motivations">Motivations<a class="headerlink" href="#motivations" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Blue</strong> gets paged at 1am with an “urgent” problem: the developers say “the website is slow”</li>
+<li><strong>Blue</strong> reluctantly agrees to take a “quick look”</li>
+<li><strong>Blue</strong> wants desperately to get back to sleep. Zzz</li>
+</ul>
+<h2 id="defense">Defense<a class="headerlink" href="#defense" title="Permanent link">&para;</a></h2>
+<p><strong>Blue</strong> looks at the page with an unsurprising lack of details, and spends a few minutes getting the answer to exactly <em>which</em> website they are referring to that is underperforming.  It's "the one running in Kubernetes", they said.  <strong>Blue</strong> leverages their Cloud Shell terminal to begin the process of troubleshooting the issue.</p>
+<h3 id="identifying-the-issue">Identifying the Issue<a class="headerlink" href="#identifying-the-issue" title="Permanent link">&para;</a></h3>
+<p>The first step is to determine the name for the web application <code>deployment</code> in question.  From the terminal, <strong>Blue</strong> runs the following to see a listing of all <code>pods</code> in all <code>namespaces</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="go">kubectl get pods --all-namespaces</span>
+</code></pre></div>
+<p>The <code>cluster</code> is relatively small in size, but it has a couple <code>deployments</code> that could be the site in question.  The development team mentions performance is an issue, so <strong>Blue</strong> checks the current CPU and Memory usage with:</p>
+<div class="highlight"><pre><span></span><code><span class="go">kubectl top node</span>
+</code></pre></div>
+<p>and</p>
+<div class="highlight"><pre><span></span><code><span class="go">kubectl top pod --all-namespaces</span>
+</code></pre></div>
+<p>It appears that a suspcious <code>deployment</code> named <code>bitcoinero</code> is running, and its causing resource contention issues.  <strong>Blue</strong> runs the following to see the <code>pod's</code> full configuration:</p>
+<div class="highlight"><pre><span></span><code><span class="go">kubectl get deployment -n prd bitcoinero -o yaml</span>
+</code></pre></div>
+<p>It was created very recently, but there are no ports listening, so this looks unlikely to be part of the website.  Next, <strong>Blue</strong> grabs a consolidated listing of all images running in the <code>cluster</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="go">kubectl get pods --all-namespaces -o jsonpath=&quot;{..image}&quot; | tr -s &#39;[[:space:]]&#39; &#39;\n&#39; | sort -u</span>
+</code></pre></div>
+<h3 id="confirming-the-foreign-workload">Confirming the Foreign Workload<a class="headerlink" href="#confirming-the-foreign-workload" title="Permanent link">&para;</a></h3>
+<p><strong>Blue</strong> sends a message back to the developers asking for confirmation of the suspicious <code>bitcoinero</code> image, and they all agree they don't know who created the <code>deployment</code>. They also mention that someone accidentally deployed a <code>nodePort</code> for the production ops dashboard, and ask if <strong>Blue</strong> can delete it for them. <strong>Blue</strong> makes a mental note about the <code>nodePort</code> and then <a href="https://console.cloud.google.com/logs/viewer" target="_blank">opens a browser to the cluster log system</a>, making sure to go to the Legacy Logs Viewer.</p>
+<p>Once there, <strong>Blue</strong> clicks on the small "down arrow" on the far right of the "Filter by label or text" search bar, selects "Convert to advanced filter", and puts the following query into the search filter area:</p>
+<div class="highlight"><pre><span></span><code><span class="go">resource.type=&quot;k8s_cluster&quot;</span>
+<span class="go">protoPayload.authorizationInfo.permission=&quot;io.k8s.apps.v1.deployments.create&quot;</span>
+</code></pre></div>
+<p><img alt="Stackdriver Log Filter of Default Service Account" src="../img/sd-prd.png" /></p>
+<p><strong>Blue</strong> sees that the <code>default</code> Kubernetes <code>serviceaccount</code> was the creator of the <code>bitcoinero</code> <code>deployment</code>.</p>
+<p>Back in the Cloud Shell terminal, <strong>Blue</strong> runs the following to list the <code>pods</code> running with the <code>default</code> <code>serviceaccount</code> in the <code>prd</code> <code>namespace</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="go">kubectl get pods -n prd -o jsonpath=&#39;{range .items[?(@.spec.serviceAccountName==&quot;default&quot;)]}{.metadata.name}{&quot; &quot;}{.spec.serviceAccountName}{&quot;\n&quot;}{end}&#39;</span>
+</code></pre></div>
+<h3 id="cleaning-up">Cleaning Up<a class="headerlink" href="#cleaning-up" title="Permanent link">&para;</a></h3>
+<p>Unsure of exactly <em>how</em> a <code>pod</code> created another <code>pod</code>, <strong>Blue</strong> decides that it's now 3am, and the commands are blurring together.  The website is still slow, so <strong>Blue</strong> decides to find and delete the <code>deployment</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="go">kubectl get deployments -n prd</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="go">kubectl delete deployment bitcoinero -n prd</span>
+</code></pre></div>
+<p>They also keep their promise, and delete the <code>nodePort</code>:
+<div class="highlight"><pre><span></span><code><span class="go">kubectl get services -n prd</span>
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code><span class="go">kubectl delete service dashboard -n prd</span>
+</code></pre></div>
+<h3 id="installing-security-visibility">Installing Security Visibility<a class="headerlink" href="#installing-security-visibility" title="Permanent link">&para;</a></h3>
+<p>It's now very clear to <strong>Blue</strong> that without additional information, it's difficult to determine exactly <em>who</em> or <em>what</em> created that <code>bitcoinero</code> deployment.  Was it code?  Was it a human?  <strong>Blue</strong> suspects it was one of the engineers on the team, but there's not much they can do without proof.  Remembering that this <code>cluster</code> doesn't have any runtime behavior monitoring and detection software installed, <strong>Blue</strong> decides to install <a href="https://falco.org" target="_blank">Sysdig's Falco</a> using an all-in-one manifest from a prominent blogger.</p>
+<div class="highlight"><pre><span></span><code><span class="go">kubectl apply -f https://raw.githubusercontent.com/securekubernetes/securekubernetes/master/manifests/security.yml</span>
+</code></pre></div>
+<p>Just to make sure it's working, <strong>Blue</strong> runs the following command to get the logs from the deployed <code>Falco</code> <code>pod(s)</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="go">kubectl logs -n falco $(kubectl get pod -n falco -l app=falco -o=name) -f</span>
+</code></pre></div>
+<h3 id="ensuring-security-log-flow">Ensuring Security Log Flow<a class="headerlink" href="#ensuring-security-log-flow" title="Permanent link">&para;</a></h3>
+<p>Going back to the <a href="https://console.cloud.google.com/logs/viewer" target="_blank">logging system</a>, <strong>Blue</strong> enters another log filter using the "advanced filter" with the following query to confirm it's receiving all the logs coming from the <code>Falco</code> <code>deployment</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="go">resource.type=k8s_container</span>
+<span class="go">resource.labels.namespace_name=&quot;falco&quot;</span>
+<span class="go">resource.labels.container_name=&quot;falco&quot;</span>
+</code></pre></div>
+<h3 id="reviewing-the-falco-rules">Reviewing the Falco Rules:<a class="headerlink" href="#reviewing-the-falco-rules" title="Permanent link">&para;</a></h3>
+<p>Falco Kubernetes Rules:</p>
+<div class="highlight"><pre><span></span><code><span class="go">kubectl get configmaps -n falco falco-config -o json | jq -r &#39;.data.&quot;falco_rules.yaml&quot;&#39; | grep rule:</span>
+</code></pre></div>
+<p>Kubernetes Audit Rules (Not applicable on GKE):</p>
+<div class="highlight"><pre><span></span><code><span class="go">kubectl get configmaps -n falco falco-config -o json | jq -r &#39;.data.&quot;k8s_audit_rules.yaml&quot;&#39; | grep rule:</span>
+</code></pre></div>
+<h3 id="giving-the-all-clear">Giving the "All Clear"<a class="headerlink" href="#giving-the-all-clear" title="Permanent link">&para;</a></h3>
+<p>Seeing what looks like a "happy" <code>cluster</code>, <strong>Blue</strong> emails their boss that there was a workload using too many resources that wasn't actually needed, so it was deleted.  Also, they added some additional "security" just in case.</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../scenario_1_attack/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Scenario 1 Attack" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Scenario 1 Attack
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../scenario_2_attack/" class="md-footer__link md-footer__link--next" aria-label="Next: Scenario 2 Attack" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Scenario 2 Attack
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/securekubernetes/securekubernetes" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.709b4209.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.febc23d1.min.js"></script>
+      
+    
+  </body>
+</html>
