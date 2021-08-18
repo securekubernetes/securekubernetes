@@ -132,7 +132,7 @@ We have typical Kubernetes-related environment variables defined, and we have an
 
 ```console
 export PATH=/tmp:$PATH
-cd /tmp; curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.16.4/bin/linux/amd64/kubectl; chmod 555 kubectl
+cd /tmp; curl -LO https://dl.k8s.io/release/v1.22.0/bin/linux/amd64/kubectl; chmod 555 kubectl
 ```
 ```console
 kubectl get all
